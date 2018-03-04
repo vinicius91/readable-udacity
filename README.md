@@ -20,5 +20,5 @@ To get started developing right away:
   * `node server`
 * Start the front end
   * `cd frontend`
-  * `yarn install`
-  * `yarn start`
+  * `npm install`
+  * `npm start`
