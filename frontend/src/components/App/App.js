@@ -15,37 +15,6 @@ const theme = createMuiTheme({
     error: red,
     alert: deepOrange
   }
-  // overrides: {
-  //   MuiAppBar: {
-  //     root: {
-  //       background: "linear-gradient(45deg, #FAFAFA 70%, #616161 99%)",
-  //       color: "white"
-  //     }
-  //   },
-  //   MuiExpansionPanel: {
-  //     root: {
-  //       marginBottom: "5px",
-  //       marginTop: "5px"
-  //     }
-  //   },
-  //   MuiExpansionPanelSummary: {
-  //     root: {
-  //       background: "linear-gradient(45deg, #D50000 35%, #EF5350 80%)",
-  //       // background: "linear-gradient(45deg, #7F0019 30%, #df4428 90%)",
-  //       color: "white"
-  //     }
-  //   },
-  //   MuiBottomNavigation: {
-  //     root: {
-  //       background: "linear-gradient(45deg, #393939 1%, #f0f0f0 30%)",
-  //       // background: "linear-gradient(45deg, #7F0019 30%, #df4428 90%)",
-  //       color: "white"
-  //     }
-  //   },
-  //   MuiListItemIcon: {
-  //     color: "white"
-  //   }
-  // }
 });
 class App extends Component {
   render() {

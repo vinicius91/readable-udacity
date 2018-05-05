@@ -1,20 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
-import IconButton from "material-ui/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Avatar from "material-ui/Avatar";
-import Button from "material-ui/Button";
-import Menu, { MenuItem } from "material-ui/Menu";
-import logo from "../../assets/images/logo.png";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import Avatar from 'material-ui/Avatar';
+import Button from 'material-ui/Button';
+import NavMenu from './NavMenu';
+
+import logo from '../../assets/images/logo.png';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    display: "flex"
+    display: 'flex'
   },
   flex: {
     flex: 1
@@ -27,7 +26,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2
   },
   popperClose: {
-    pointerEvents: "none"
+    pointerEvents: 'none'
   },
   avatar: {
     margin: 10,
@@ -37,61 +36,20 @@ const styles = theme => ({
 });
 
 class Navigation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      anchorEl: null
-    };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
-
-  handleClick(event) {
-    this.setState({ anchorEl: event.currentTarget });
-  }
-
-  handleClose() {
-    this.setState({ anchorEl: null });
-  }
-
   render() {
     const { classes } = this.props;
-    const { anchorEl } = this.state;
-
     return (
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-              onClick={this.handleClick}
-            >
-              <MenuIcon />
-            </IconButton>
             <Avatar alt="Readable" src={logo} className={classes.avatar} />
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
-            >
+            <Typography variant="title" color="inherit" className={classes.flex}>
               Readable
             </Typography>
+            <NavMenu />
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}
-          targetOrigin={{ vertical: "bottom", horizontal: "left" }}
-        >
-          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-          <MenuItem onClick={this.handleClose}>My account</MenuItem>
-          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-        </Menu>
       </div>
     );
   }

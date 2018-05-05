@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import { getAllPosts, getAllCategories } from '../../utils/api';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
 import PostCard from '../PostCard/PostCard';
+import { postsPropType } from '../../models/postModel';
+import { getPosts } from '../../actions';
 
 const styles = theme => ({
   root: {
@@ -26,36 +30,13 @@ const styles = theme => ({
 });
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      categories: []
-    };
-  }
-
-  componentWillMount() {
-    getAllPosts()
-      .then((posts) => {
-        console.log('posts', posts); // eslint-disable-line no-console
-        this.setState({ posts });
-      })
-      .catch((err) => {
-        console.log('Error', err); // eslint-disable-line no-console
-      });
-
-    getAllCategories()
-      .then((categories) => {
-        this.setState({ categories });
-      })
-      .catch((err) => {
-        console.log('Error', err); // eslint-disable-line no-console
-      });
+  componentDidMount() {
+    this.props.getPosts();
   }
 
   render() {
-    const { posts, categories } = this.state;
-    const { classes } = this.props;
+    const { classes, posts } = this.props;
+
     return (
       <div className={classes.root}>
         <div className={classes.header}>
@@ -71,14 +52,28 @@ class Home extends Component {
             <PostCard post={post} />
           </div>
         ))}
-        {/* <div>{categories.map(category => <p>{category}</p>)}</div> */}
       </div>
     );
   }
 }
 
 Home.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  getPosts: PropTypes.func.isRequired,
+  posts: postsPropType.isRequired
 };
 
-export default withStyles(styles)(Home);
+function mapDispatchToProps(dispatch) {
+  return {
+    getPosts: bindActionCreators(getPosts, dispatch)
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    posts: state.postState.posts,
+    selectedCategory: state.categoryState.selectedCategory
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home)));
