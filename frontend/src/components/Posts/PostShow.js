@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Grid, Col, PageHeader, Well } from 'react-bootstrap';
-import CommentSection from './CommentSection';
+import CommentSection from '../Comments/CommentSection';
 import { fetchPost } from '../../store/actions/postActions';
 
 class PostShow extends Component {

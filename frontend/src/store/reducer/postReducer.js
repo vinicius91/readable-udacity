@@ -6,7 +6,9 @@ import {
   VOTE_POST,
   VOTE_COMMENT,
   SORT_POSTS_BY,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  SAVE_COMMENT,
+  SAVE_COMMENT_EDIT
 } from '../actions/postActions';
 
 import _ from 'lodash';
@@ -15,7 +17,8 @@ const postInitialState = {
   posts: [],
   selectedPost: {
     post: null,
-    comments: []
+    comments: [],
+    selectedComment: null
   },
   lastOrder: {
     timestamp: 'asc',
@@ -44,6 +47,30 @@ export default function PostState(state = postInitialState, action) {
         selectedPost: {
           ...state.selectedPost,
           post
+        }
+      };
+    }
+    case SAVE_COMMENT: {
+      console.log(action.payload);
+      const comment = action.payload;
+      return {
+        ...state,
+        selectedPost: {
+          ...state.selectedPost,
+          comments: [comment, ...state.selectedPost.comments]
+        }
+      };
+    }
+    case SAVE_COMMENT_EDIT: {
+      const comment = action.payload;
+      const comments = state.selectedPost.comments.filter(
+        (c) => c.id !== comment.id
+      );
+      return {
+        ...state,
+        selectedPost: {
+          ...state.selectedPost,
+          comments: [comment, ...comments]
         }
       };
     }
