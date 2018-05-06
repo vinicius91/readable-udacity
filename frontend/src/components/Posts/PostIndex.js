@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LinkContainer } from 'react-router-bootstrap';
 import _ from 'lodash';
-import { ListGroup, ListGroupItem, Grid, Row, Col } from 'react-bootstrap';
-import { fetchPosts } from '../../store/actions/postActions';
+import {
+  Grid,
+  Row,
+  Col,
+  PanelGroup,
+  ButtonToolbar,
+  ButtonGroup,
+  Button,
+  Glyphicon,
+  OverlayTrigger,
+  Tooltip
+} from 'react-bootstrap';
+import { fetchPosts, sortBy } from '../../store/actions/postActions';
+import PostListItem from './PostListItem';
 
 class PostIndex extends Component {
   componentDidMount() {
@@ -14,19 +25,14 @@ class PostIndex extends Component {
     const { posts } = this.props;
     if (posts) {
       return _.map(posts, (post) => {
-        const { id, title, author, category } = post;
-        return (
-          <div key={id}>
-            <LinkContainer to={`/${category}/${id}`}>
-              <ListGroupItem header={title}>
-                Author: {author} | Category: {category}
-              </ListGroupItem>
-            </LinkContainer>
-          </div>
-        );
+        return <PostListItem post={post} key={post.id} />;
       });
     }
     return <p>Loading...</p>;
+  }
+
+  handleSortClick(event, param) {
+    this.props.sortBy(param);
   }
 
   render() {
@@ -34,7 +40,32 @@ class PostIndex extends Component {
       <Grid>
         <Row className="show-grid">
           <Col xs={12}>
-            <ListGroup>{this.renderPosts()}</ListGroup>
+            <ButtonToolbar>
+              <ButtonGroup className="pull-right">
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={<Tooltip id="date">Sort by Date</Tooltip>}>
+                  <Button
+                    onClick={(event) =>
+                      this.handleSortClick(event, 'timestamp')
+                    }>
+                    <Glyphicon glyph="sort" /> <Glyphicon glyph="calendar" />
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={<Tooltip id="score">Sort by Vote Score</Tooltip>}>
+                  <Button
+                    onClick={(event) =>
+                      this.handleSortClick(event, 'voteScore')
+                    }>
+                    <Glyphicon glyph="sort" /> <Glyphicon glyph="star" />
+                  </Button>
+                </OverlayTrigger>
+              </ButtonGroup>
+            </ButtonToolbar>
+            <hr />
+            <PanelGroup id="posts-index">{this.renderPosts()}</PanelGroup>
           </Col>
         </Row>
       </Grid>
@@ -55,4 +86,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, { fetchPosts })(PostIndex);
+export default connect(mapStateToProps, { fetchPosts, sortBy })(PostIndex);

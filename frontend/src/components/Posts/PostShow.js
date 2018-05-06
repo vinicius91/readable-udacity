@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Row,
-  Grid,
-  Col,
-  PageHeader,
-  Well,
-  ListGroup,
-  ListGroupItem
-} from 'react-bootstrap';
-import { fetchPost, fetchPostComments } from '../../store/actions/postActions';
+import { Row, Grid, Col, PageHeader, Well } from 'react-bootstrap';
+import CommentSection from './CommentSection';
+import { fetchPost } from '../../store/actions/postActions';
 
 class PostShow extends Component {
   componentDidMount() {
     const { postId } = this.props.match.params;
     if (postId) {
       this.props.fetchPost(postId);
-      this.props.fetchPostComments(postId);
     }
   }
+
   render() {
-    const { post, comments } = this.props;
-    if (!post || !comments) {
+    const { post } = this.props;
+    if (!post) {
       return (
         <Grid>
           <Row className="show-grid">
@@ -46,32 +39,16 @@ class PostShow extends Component {
             </Well>
           </Col>
         </Row>
-        <Row className="show-grid">
-          <Col xs={12}>
-            <Well>
-              <h3>Comments</h3>
-              <ListGroup>
-                {comments.map((comment) => (
-                  <ListGroupItem key={comment.id} header={comment.author}>
-                    {comment.body}
-                  </ListGroupItem>
-                ))}
-              </ListGroup>
-            </Well>
-          </Col>
-        </Row>
+        <CommentSection postId={post.id} />
       </Grid>
     );
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  const { post, comments } = state.PostState.selectedPost;
+  const { post } = state.PostState.selectedPost;
   return {
-    post,
-    comments
+    post
   };
 }
-export default connect(mapStateToProps, { fetchPost, fetchPostComments })(
-  PostShow
-);
+export default connect(mapStateToProps, { fetchPost })(PostShow);

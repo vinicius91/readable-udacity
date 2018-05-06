@@ -1,0 +1,11 @@
+.margin-right {
+  margin-right: 10px;
+}
+
+.panel-default > .panel-heading {
+  background-color: #c5c5c5;
+}
+
+.panel-default > .panel-footer {
+  background-color: #d6d6d6;
+}

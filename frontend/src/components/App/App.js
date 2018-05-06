@@ -6,6 +6,7 @@ import PostIndex from '../Posts/PostIndex';
 import PostNew from '../Posts/PostNew';
 import PostShow from '../Posts/PostShow';
 import Header from '../Shared/Header';
+import PostEdit from '../Posts/PostEdit';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
           <div>
             <Header />
             <Switch>
+              <Route path="/posts/edit/:postId" component={PostEdit} />
               <Route path="/posts/new" component={PostNew} />
               <Route path="/:category/:postId" component={PostShow} />
               <Route path="/:category" component={PostIndex} />
