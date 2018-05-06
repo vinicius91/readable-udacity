@@ -1,7 +1,15 @@
-import { FETCH_POSTS } from '../actions/postActions';
+import {
+  FETCH_POSTS,
+  FETCH_POST,
+  FETCH_POST_COMMENTS
+} from '../actions/postActions';
 
 const postInitialState = {
-  posts: []
+  posts: [],
+  selectedPost: {
+    post: null,
+    comments: []
+  }
 };
 
 export default function PostState(state = postInitialState, action) {
@@ -11,6 +19,26 @@ export default function PostState(state = postInitialState, action) {
       return {
         ...state,
         posts
+      };
+    }
+    case FETCH_POST: {
+      const post = action.payload;
+      return {
+        ...state,
+        selectedPost: {
+          ...state.selectedPost,
+          post
+        }
+      };
+    }
+    case FETCH_POST_COMMENTS: {
+      const comments = action.payload;
+      return {
+        ...state,
+        selectedPost: {
+          ...state.selectedPost,
+          comments
+        }
       };
     }
     default:
