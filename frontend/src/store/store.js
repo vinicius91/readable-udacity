@@ -1,14 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import promise from 'redux-promise';
 import logger from 'redux-logger';
-import reducer from '../reducers/index';
 
-import api from '../utils/api';
+import reducer from './reducer/root';
 
-// eslint-disable max-len
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line no-underscore-dangle
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default createStore(
   reducer,
-  composeEnhancers(applyMiddleware(thunk.withExtraArgument(api), logger))
+  composeEnhancers(applyMiddleware(logger, promise))
 );

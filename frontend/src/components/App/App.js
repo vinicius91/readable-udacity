@@ -1,32 +1,28 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import lightGreen from 'material-ui/colors/lightGreen';
-import deepOrange from 'material-ui/colors/deepOrange';
-import amber from 'material-ui/colors/amber';
-import red from 'material-ui/colors/red';
-import Navigation from '../Navigation/Navigation';
-import Home from '../Home/Home';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import store from '../../store/store';
+import PostIndex from '../Posts/PostIndex';
+import PostNew from '../Posts/PostNew';
+import PostShow from '../Posts/PostShow';
+import Header from '../Shared/Header';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: lightGreen,
-    secondary: amber,
-    error: red,
-    alert: deepOrange
-  }
-});
 class App extends Component {
   render() {
     return (
-      <Router>
-        <MuiThemeProvider theme={theme}>
-          <Navigation />
-          <Route exact path="/" component={Home} />
-          <Route exact path="/:category" component={Home} />
-          <Route exact path="/:category/:post_id" component={Home} />
-        </MuiThemeProvider>
-      </Router>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div>
+            <Header />
+            <Switch>
+              <Route path="/posts/new" component={PostNew} />
+              <Route path="/:category/:postId" component={PostShow} />
+              <Route path="/:category" component={PostIndex} />
+              <Route path="/" component={PostIndex} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

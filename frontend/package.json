@@ -1,39 +1,26 @@
 {
-  "name": "frontend",
+  "name": "readable-udacity",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/icons": "^1.0.0-beta.43",
-    "classnames": "^2.2.5",
-    "eslint-plugin-react": "^7.7.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "material-ui": "^1.0.0-beta.41",
-    "prop-types": "^15.6.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-popper": "^0.10.1",
+    "lodash": "^4.17.10",
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
-    "react-router": "^4.2.0",
+    "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
-    "redux": "^3.7.2",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-form": "^7.3.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "semantic-ui-css": "^2.3.0",
-    "semantic-ui-react": "^0.78.3"
+    "redux-promise": "^0.5.3",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "eslint": "^4.18.2",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3"
   }
 }
